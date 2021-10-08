@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 40vh;
 }
 
 .grid {
@@ -20,8 +20,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  height: 200px;
-  width: 400px;
+  height: 220px;
+  width: 350px;
 }
 
 .grid div {
@@ -29,7 +29,7 @@ body {
   height: 10%;
   width: 10%;
   border: 1px solid lightgrey;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .grid div.pacman {

@@ -33,13 +33,12 @@ function init() {
   const width = 10
   const cellCount = width * width
   const cells = []
-  const walls = cells.filter(cell => cell.contains('walls'))
-  console.log(cells)
-  console.log(walls)
-
+  const walls = []
+  const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117','133', '136', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
   const startingPacmanPosition = 125
   let currentPacmanPosition = 125
   const pacmanClass = 'pacman'
+  console.log(cells)
 
   function createGrid() {
     for (let i = 0; i < 300; i++) {
@@ -48,15 +47,15 @@ function init() {
       grid.appendChild(cell)
       cells.push(cell)
     }
-    cells.forEach(cell => {
-      if (cell.innerText % width === 0 || cell.innerText % width === width - 1 || cell.innerText < width || cell.innerText > width * (width + width + width) - 10) {
-        cell.classList.add('walls')
+    cells.forEach(wall => {
+      if (wall.innerText % width === 0 || wall.innerText % width === width - 1 || wall.innerText < width || wall.innerText > width * (width + width + width) - 10 || innerWalls.includes(wall.innerText))  {
+        wall.classList.add('walls')
+        walls.push(wall)
       }
     })
     addPacman(startingPacmanPosition)
-  }
 
-  
+  }
 
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
@@ -68,25 +67,21 @@ function init() {
 
   function handleKeyUp(event) {
     const key = event.keyCode
-
     removePacman(currentPacmanPosition)
-
-    if (key === 39 && currentPacmanPosition % width !== width - 1) {
+    console.log(currentPacmanPosition)
+    if (key === 39 && currentPacmanPosition % width !== width - 1 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false) {
       currentPacmanPosition++
-    } else if (key === 37 && currentPacmanPosition % width !== 0) {
+    } else if (key === 37 && currentPacmanPosition % width !== 0 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false ) {
       currentPacmanPosition--
-    } else if (key === 38 && currentPacmanPosition >= width) {
-      console.log('UP')
+    } else if (key === 38 && currentPacmanPosition >= width && cells[currentPacmanPosition - width ].classList.contains('walls') === false ) {
       currentPacmanPosition -= width
-    } else if (key === 40 && currentPacmanPosition + width <= width * (width + width + width)- 1) {
-      console.log('DOWN')
+    } else if (key === 40 && currentPacmanPosition + width <= width * (width + width + width) - 1 && cells[currentPacmanPosition + width ].classList.contains('walls') === false) {
       currentPacmanPosition += width
-    } else {
-      console.log('INVALID KEY')
     }
-
     addPacman(currentPacmanPosition)
   }
+
+  console.log(typeof currentPacmanPosition)
 
 
 
