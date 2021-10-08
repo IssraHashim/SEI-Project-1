@@ -33,6 +33,9 @@ function init() {
   const width = 10
   const cellCount = width * width
   const cells = []
+  const walls = cells.filter(cell => cell.contains('walls'))
+  console.log(cells)
+  console.log(walls)
 
   const startingPacmanPosition = 125
   let currentPacmanPosition = 125
@@ -45,9 +48,15 @@ function init() {
       grid.appendChild(cell)
       cells.push(cell)
     }
+    cells.forEach(cell => {
+      if (cell.innerText % width === 0 || cell.innerText % width === width - 1 || cell.innerText < width || cell.innerText > width * (width + width + width) - 10) {
+        cell.classList.add('walls')
+      }
+    })
     addPacman(startingPacmanPosition)
   }
 
+  
 
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
@@ -69,7 +78,7 @@ function init() {
     } else if (key === 38 && currentPacmanPosition >= width) {
       console.log('UP')
       currentPacmanPosition -= width
-    } else if (key === 40 && currentPacmanPosition + width <= width * width * width - 1) {
+    } else if (key === 40 && currentPacmanPosition + width <= width * (width + width + width)- 1) {
       console.log('DOWN')
       currentPacmanPosition += width
     } else {

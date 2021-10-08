@@ -29,10 +29,15 @@ body {
   height: 10%;
   width: 10%;
   border: 1px solid lightgrey;
+  border-radius: 3px;
 }
 
 .grid div.pacman {
   background-image: url('../assets/pacman.jpeg');
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.grid div.walls {
+  background: darkgray;
 }
