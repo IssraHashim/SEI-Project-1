@@ -35,10 +35,10 @@ function init() {
   const cells = []
   const walls = []
   const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117','133', '136', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
-  const startingPacmanPosition = 125
-  let currentPacmanPosition = 125
+  const startingPacmanPosition = 255
+  let currentPacmanPosition = 255
   const pacmanClass = 'pacman'
-  console.log(cells)
+  const startingGhostPosition = ['134', '135', '144', '145', '154', '155']
 
   function createGrid() {
     for (let i = 0; i < 300; i++) {
@@ -47,13 +47,16 @@ function init() {
       grid.appendChild(cell)
       cells.push(cell)
     }
+    addPacman(startingPacmanPosition)
+
     cells.forEach(wall => {
       if (wall.innerText % width === 0 || wall.innerText % width === width - 1 || wall.innerText < width || wall.innerText > width * (width + width + width) - 10 || innerWalls.includes(wall.innerText))  {
         wall.classList.add('walls')
         walls.push(wall)
+      } else if (!startingGhostPosition.includes(wall.innerText) && wall.innerText !== '255'){
+        wall.classList.add('food')
       }
     })
-    addPacman(startingPacmanPosition)
 
   }
 
@@ -81,11 +84,9 @@ function init() {
     addPacman(currentPacmanPosition)
   }
 
-  console.log(typeof currentPacmanPosition)
 
 
-
-  document.addEventListener('keyup', handleKeyUp)
+  document.addEventListener('keydown', handleKeyUp)
 
 
 

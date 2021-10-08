@@ -21,7 +21,7 @@ body {
   align-items: center;
   height: 100%;
   height: 220px;
-  width: 350px;
+  width: 400px;
 }
 
 .grid div {
@@ -30,6 +30,7 @@ body {
   width: 10%;
   border: 1px solid lightgrey;
   border-radius: 6px;
+  font-size: 11px;
 }
 
 .grid div.pacman {
@@ -40,4 +41,10 @@ body {
 
 .grid div.walls {
   background: darkgray;
+}
+
+.grid div.food {
+  background-image: url('../assets/food.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
