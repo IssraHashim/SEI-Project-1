@@ -34,6 +34,7 @@ function init() {
   const cellCount = width * width
   const cells = []
   const walls = []
+  const currentScore = document.querySelector('span')
   let score = 0
   const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117','133', '136', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
   const startingPacmanPosition = 255
@@ -85,13 +86,9 @@ function init() {
     if (cells[currentPacmanPosition].classList.contains('food')){
       score++
       cells[currentPacmanPosition].classList.remove('food')
+      currentScore.innerText = score
     }  
-    console.log(score)
   }
-
-  // function eatingFood(event) {
-  //   
-  // }
 
   document.addEventListener('keydown', handleKeyUp)
 
