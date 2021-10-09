@@ -34,6 +34,7 @@ function init() {
   const cellCount = width * width
   const cells = []
   const walls = []
+  let score = 0
   const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117','133', '136', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
   const startingPacmanPosition = 255
   let currentPacmanPosition = 255
@@ -71,7 +72,6 @@ function init() {
   function handleKeyUp(event) {
     const key = event.keyCode
     removePacman(currentPacmanPosition)
-    console.log(currentPacmanPosition)
     if (key === 39 && currentPacmanPosition % width !== width - 1 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false) {
       currentPacmanPosition++
     } else if (key === 37 && currentPacmanPosition % width !== 0 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false ) {
@@ -82,9 +82,16 @@ function init() {
       currentPacmanPosition += width
     }
     addPacman(currentPacmanPosition)
+    if (cells[currentPacmanPosition].classList.contains('food')){
+      score++
+      cells[currentPacmanPosition].classList.remove('food')
+    }  
+    console.log(score)
   }
 
-
+  // function eatingFood(event) {
+  //   
+  // }
 
   document.addEventListener('keydown', handleKeyUp)
 
