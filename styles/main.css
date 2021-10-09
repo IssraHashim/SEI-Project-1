@@ -5,8 +5,18 @@
 body {
   height : 100vh;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(118, 223, 118);
 }
 
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10vw;
+  margin-top: 40vh;
+}
 .grid-wrapper {
   display: flex;
   justify-content: center;
@@ -40,11 +50,16 @@ body {
 }
 
 .grid div.walls {
-  background: darkgray;
+  background: gray;
 }
 
 .grid div.food {
   background-image: url('../assets/food.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.grid div.ghost {
+  background-image: url('../assets/ghost.png');
   background-size: contain;
   background-repeat: no-repeat;
 }

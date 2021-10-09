@@ -51,13 +51,14 @@ function init() {
     }
     addPacman(startingPacmanPosition)
 
-    cells.forEach(wall => {
-      if (wall.innerText % width === 0 || wall.innerText % width === width - 1 || wall.innerText < width || wall.innerText > width * (width + width + width) - 10 || innerWalls.includes(wall.innerText))  {
-        wall.classList.add('walls')
-        walls.push(wall)
-      } else if (!startingGhostPosition.includes(wall.innerText) && wall.innerText !== '255'){
-        wall.classList.add('food')
-      }
+    cells.forEach(space => {
+      if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * (width + width + width) - 10 || innerWalls.includes(space.innerText))  {
+        space.classList.add('walls')
+        walls.push(space)
+      } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== '255'){
+        space.classList.add('food')
+      } else if (startingGhostPosition.includes(space.innerText))
+        space.classList.add('ghost')
     })
 
   }
