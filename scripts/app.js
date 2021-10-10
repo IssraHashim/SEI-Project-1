@@ -36,12 +36,17 @@ function init() {
   const walls = []
   const currentScore = document.querySelector('span')
   let score = 0
-  const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117','133', '136', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
+  const innerWalls = ['32', '34', '35', '37', '52', '53', '53', '56', '57','82', '87', '92','97', '102', '103', '106', '107', '112', '117', '143', '146', '153' ,'156', '163', '164', '165', '166', '192', '197', '202', '203', '206', '207', '212', '217', '222', '227', '252', '253', '256', '257', '272', '274', '275', '277' ]
   const startingPacmanPosition = 255
   let currentPacmanPosition = 255
   const pacmanClass = 'pacman'
-  const startingGhostPosition = ['134', '135', '144', '145', '154', '155']
-
+  const startingGhostPosition = ['144', '145', '154', '155']
+  console.log(startingGhostPosition.innerText)
+  let currentGhostPosition = ['144', '145', '154', '155']
+  let myInterval
+  currentGhostPosition.forEach(ghost => console.log(ghost))
+  
+    
   function createGrid() {
     for (let i = 0; i < 300; i++) {
       const cell = document.createElement('div')
@@ -55,12 +60,27 @@ function init() {
       if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * (width + width + width) - 10 || innerWalls.includes(space.innerText))  {
         space.classList.add('walls')
         walls.push(space)
-      } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== '255'){
+      } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== startingPacmanPosition){
         space.classList.add('food')
       } else if (startingGhostPosition.includes(space.innerText))
         space.classList.add('ghost')
     })
-
+    // myInterval = setInterval(()=> {
+    //   removeGhost(currentGhostPosition)
+    //   console.log(currentGhostPosition)
+    //   currentGhostPosition.forEach(ghost => {
+    //     if (ghost.innerText % width !== width - 1 && cells[Number(ghost) + 1 ].classList.contains('walls') === false){
+    //       currentGhostPosition++
+    //     } else if (ghost.innerText % width !== 0 && cells[Number(ghost) - 1 ].classList.contains('walls') === false ) {
+    //       currentGhostPosition--
+    //     } else if (ghost.innerText >= width && cells[Number(ghost) - width ].classList.contains('walls') === false ) {
+    //       currentGhostPosition -= width
+    //     } else if (ghost.innerText + width <= width * (width + width + width) - 1 && cells[Number(ghost) + width ].classList.contains('walls') === false) {
+    //       currentGhostPosition += width
+    //     }
+    //   })
+    //   addGhost(currentGhostPosition)
+    // }, 1000)
   }
 
   function addPacman(position){
@@ -71,6 +91,16 @@ function init() {
     cells[position].classList.remove(pacmanClass)
   }
 
+  function addGhost(position){
+    for (let i = 0; i < position.length; i++){
+      cells.filter(cell => cell.innerText(position[i]).classList.add('ghost')) 
+    }
+  }
+
+  function removeGhost(position){
+    cells.forEach(cell => cell.classList.remove('ghost'))
+  }
+  
   function handleKeyUp(event) {
     const key = event.keyCode
     removePacman(currentPacmanPosition)
@@ -90,6 +120,7 @@ function init() {
       currentScore.innerText = score
     }  
   }
+
 
   document.addEventListener('keydown', handleKeyUp)
 
