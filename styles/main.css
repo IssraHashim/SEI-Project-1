@@ -4,10 +4,11 @@
 
 body {
   height : 100vh;
-  margin: 0;
   display: flex;
   justify-content: center;
-  background-color: rgb(118, 223, 118);
+  background-color: rgba(72, 211, 227, 0.899);
+  margin: 2vh 20vw;
+  font-family: 'Bangers', cursive;
 }
 
 .menu {
@@ -21,7 +22,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40vh;
+  height: 30vh;
 }
 
 .grid {
@@ -29,37 +30,41 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  height: 220px;
-  width: 400px;
+  height: 109%;
+  width: 85%;
 }
 
 .grid div {
   flex-grow: 1;
   height: 10%;
   width: 10%;
-  border: 1px solid lightgrey;
-  border-radius: 6px;
+  /* border: 1px solid lightgrey; */
+  border-radius: 7px;
   font-size: 11px;
 }
 
 .grid div.pacman {
-  background-image: url('../assets/pacman.jpeg');
+  background-image: url('../assets/yty9l4h21y7p1ipqptub.gif');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .grid div.walls {
-  background: gray;
+  background-image: url('../assets/brick.png');
+  background-size: contain;
 }
 
 .grid div.food {
-  background-image: url('../assets/food.png');
-  background-size: contain;
+  background-image: url('../assets/DW4lTLu.gif');
+  background-size: 30%;
   background-repeat: no-repeat;
+  background-position: center;
 }
+
 .grid div.ghost {
-  background-image: url('../assets/ghost.png');
+  background-image: url('../assets/d66xyb8-04c800ee-3c19-4017-8836-6d3bca894449.gif');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }

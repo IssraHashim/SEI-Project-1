@@ -63,7 +63,7 @@ function init() {
         space.classList.add('walls')
         walls.push(space)
       } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== startingPacmanPosition){
-        space.classList.add('food')
+        space.classList.add('food', )
       } else if (startingGhostPosition.includes(space.innerText))
         space.classList.add('ghost')
     })
@@ -71,20 +71,21 @@ function init() {
   
     myInterval = setInterval(()=> {
       removeGhost(currentGhostPosition)
-      currentGhostPosition = currentGhostPosition.forEach(ghost => {
+      currentGhostPosition = currentGhostPosition.filter(ghost => {
         if (cells[Number(ghost) + 1 ].classList.contains('walls') === false && cells[Number(ghost) + 1].classList.contains('ghost') === false) {
-          addGhost(Number(ghost)+1)
-          ghost = Number(ghost)++
+          addGhost(Number(ghost) +  1)
+          // ghost = Number(ghost)+1
         } else if (cells[Number(ghost) - 1 ].classList.contains('walls') === false && cells[Number(ghost) - 1].classList.contains('ghost') === false ) {
           addGhost(Number(ghost) - 1)
-          ghost = Number(ghost)--
+          // ghost = Number(ghost)-1
         } if (cells[Number(ghost) - width].classList.contains('walls') === false && cells[Number(ghost) - width].classList.contains('ghost') === false ) {
           addGhost(Number(ghost) - width)
-          ghost = Number(ghost) -= width
+          // ghost = Number(ghost) - width
         } else if (cells[Number(ghost) + width ].classList.contains('walls') === false && cells[Number(ghost) + width].classList.contains('ghost') === false) {
           addGhost(Number(ghost) + width)
-          ghost = Number(ghost) += width
+          // ghost = Number(ghost) + width
         }
+        console.log(currentGhostPosition)
       })
     }, 1000)
   }
