@@ -83,7 +83,6 @@ function init() {
   
   }
   myInterval = setInterval(()=> {
-    counter ++
     cells[ghostOne.position].classList.remove(ghostOne.class)
     if (cells[ghostOne.position + 1 ].classList.contains('walls') === false && cells[ghostOne.position + 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
       ghostOne.position++
@@ -97,7 +96,6 @@ function init() {
     cells[ghostOne.position].classList.add(ghostOne.class)
     ghostOne.previousPositions.push(ghostOne.position)
     console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
-
   }, 500)
 
   function addPacman(position){
