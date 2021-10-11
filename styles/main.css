@@ -44,10 +44,11 @@ body {
 }
 
 .grid div.pacman {
-  background-image: url('../assets/yty9l4h21y7p1ipqptub.gif');
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-image: url('../assets/AQlCuiD.gif');
+  background-size: 50%;
+  background-repeat:no-repeat;
   background-position: center;
+  animation: bounce infinite;
 }
 
 .grid div.walls {
@@ -60,6 +61,7 @@ body {
   background-size: 30%;
   background-repeat: no-repeat;
   background-position: center;
+  animation: bounce 2s infinite;
 }
 
 .grid div.ghost {

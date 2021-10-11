@@ -41,15 +41,25 @@ function init() {
   let currentPacmanPosition = 255
   const pacmanClass = 'pacman'
   const startingGhostPosition = ['144', '145', '154', '155']
-  // console.log(startingGhostPosition.innerText)
-  let currentGhostPosition = ['144', '145', '154', '155']
-  // let currentGhostPosition1 = currentGhostPosition[0]
-  // let currentGhostPosition2 = currentGhostPosition[1]
-  // let currentGhostPosition3 = currentGhostPosition[2]
-  // let currentGhostPosition4 = currentGhostPosition[3]
+  // let currentGhostPosition = ['144', '145', '154', '155']
+  // let currentGhostPosition1 
+  // let currentGhostPosition2
+  // let currentGhostPosition3
+  // let currentGhostPosition4 
   let myInterval
   // currentGhostPosition.forEach(ghost => console.log(ghost))
+  const ghostOne = {
+    position: 144,
+    speed: 1,
+    class: 'ghost',
+    previousPositions: []
+  }
+  let counter
   
+  console.log(ghostOne.position)
+  // store each ghost in an object, with specific classes, positions, colors, and use info from objects 
+  // loop 
+  // make the choice, then check if they run into wall or run into another ghost, or position they've been in before
     
   function createGrid() {
     for (let i = 0; i < 300; i++) {
@@ -58,67 +68,58 @@ function init() {
       grid.appendChild(cell)
       cells.push(cell)
     }
+    console.log(cells[0])
     cells.forEach(space => {
       if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * (width + width + width) - 10 || innerWalls.includes(space.innerText))  {
         space.classList.add('walls')
         walls.push(space)
-      } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== startingPacmanPosition){
-        space.classList.add('food', )
+      } else if (!startingGhostPosition.includes(space.innerText) && space.innerText !== startingPacmanPosition) {
+        space.classList.add('food')
       } else if (startingGhostPosition.includes(space.innerText))
         space.classList.add('ghost')
     })
     addPacman(startingPacmanPosition)
+    myInterval
   
-    // myInterval = setInterval(()=> {
-    //   removeGhost(currentGhostPosition)
-    //   currentGhostPosition.forEach(ghost => {
-    //     if (cells[Number(ghost) + 1 ].classList.contains('walls') === false && cells[Number(ghost) + 1].classList.contains('ghost') === false) {
-    //       addGhost(Number(ghost) +  1)
-    //       ghost = Number(ghost) + 1
-    //     } else if (cells[Number(ghost) - 1 ].classList.contains('walls') === false && cells[Number(ghost) - 1].classList.contains('ghost') === false ) {
-    //       addGhost(Number(ghost) - 1)
-    //       ghost = Number(ghost) - 1
-    //     } if (cells[Number(ghost) - width].classList.contains('walls') === false && cells[Number(ghost) - width].classList.contains('ghost') === false ) {
-    //       addGhost(Number(ghost) - width)
-    //       ghost = Number(ghost) - width
-    //     } else if (cells[Number(ghost) + width ].classList.contains('walls') === false && cells[Number(ghost) + width].classList.contains('ghost') === false) {
-    //       addGhost(Number(ghost) + width)
-    //       ghost = Number(ghost) + width 
-    //     }
-    //   })
-
-    //   console.log(currentGhostPosition)
-    // }, 1000)
   }
+  myInterval = setInterval(()=> {
+    counter ++
+    cells[ghostOne.position].classList.remove(ghostOne.class)
+    if (cells[ghostOne.position + 1 ].classList.contains('walls') === false && cells[ghostOne.position + 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + 1) {
+      ghostOne.position++
+    } else if (cells[ghostOne.position - width ].classList.contains('walls') === false && cells[ghostOne.position - width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - width) {
+      ghostOne.position -= width
+    } else if (cells[ghostOne.position - 1 ].classList.contains('walls') === false && cells[ghostOne.position - 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - 1) {
+      ghostOne.position--
+    } else if (cells[ghostOne.position + width ].classList.contains('walls') === false && cells[ghostOne.position + width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + width) {
+      ghostOne.position += width
+    }
+    cells[ghostOne.position].classList.add(ghostOne.class)
+    ghostOne.previousPositions.push(ghostOne.position)
+    console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
+  }, 500)
+
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
   }
+  
 
   function removePacman(position){
     cells[position].classList.remove(pacmanClass)
   }
 
-  function addGhost(position){
-    for (let i = 0; i < position.length; i++) {
-      position[i].classList.add('ghost')
-    }
-    // cells[position].classList.add('ghost')
-  }
-
-  function removeGhost(position){
-    cells.forEach(cell => cell.classList.remove('ghost'))
-  }
   
+
   function handleKeyDown(event) {
     const key = event.keyCode
     removePacman(currentPacmanPosition)
-    if (key === 39 && currentPacmanPosition % width !== width - 1 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false) {
+    if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false) {
       currentPacmanPosition++
-    } else if (key === 37 && currentPacmanPosition % width !== 0 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false ) {
+    } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false ) {
       currentPacmanPosition--
-    } else if (key === 38 && currentPacmanPosition >= width && cells[currentPacmanPosition - width ].classList.contains('walls') === false ) {
+    } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false ) {
       currentPacmanPosition -= width
-    } else if (key === 40 && currentPacmanPosition + width <= width * (width + width + width) - 1 && cells[currentPacmanPosition + width ].classList.contains('walls') === false) {
+    } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false) {
       currentPacmanPosition += width
     }
     addPacman(currentPacmanPosition)
@@ -135,8 +136,46 @@ function init() {
 
 
   createGrid(startingPacmanPosition)
-
+  console.log(cells[0])
 
 }
 window.addEventListener('DOMContentLoaded', init)
 
+// myInterval = setInterval(()=> {
+//   removeGhost(currentGhostPosition)
+//   currentGhostPosition.forEach(ghost => {
+//     if (cells[Number(ghost) + 1 ].classList.contains('walls') === false && cells[Number(ghost) + 1].classList.contains('ghost') === false) {
+//       // addGhost(Number(ghost) +  1)
+//       ghost = Number(ghost) + 1
+//     } else if (cells[Number(ghost) - 1 ].classList.contains('walls') === false && cells[Number(ghost) - 1].classList.contains('ghost') === false ) {
+//       // addGhost(Number(ghost) - 1)
+//       ghost = Number(ghost) - 1
+//     } if (cells[Number(ghost) - width].classList.contains('walls') === false && cells[Number(ghost) - width].classList.contains('ghost') === false ) {
+//       // addGhost(Number(ghost) - width)
+//       ghost = Number(ghost) - width
+//     } else if (cells[Number(ghost) + width ].classList.contains('walls') === false && cells[Number(ghost) + width].classList.contains('ghost') === false) {
+//       // addGhost(Number(ghost) + width)
+//       ghost = Number(ghost) + width 
+//     }
+//   })
+//   addGhost(currentGhostPosition)
+//   console.log(currentGhostPosition)
+// }, 1000)
+
+
+
+// function addGhost(array){
+//   for (let i = 0; i < array.length; i++) {
+//     cells.filter(cell => {
+//       console.log(cell.contains(Number(array[i])))
+//     })
+//   }
+// }
+//   // cells[Number(position[i])].classList.add('ghost')
+//   }
+// // cells[position].classList.add('ghost')
+
+// console.log(currentGhostPosition)
+// function removeGhost(position){
+//   cells.forEach(cell => cell.classList.remove('ghost'))
+// }
