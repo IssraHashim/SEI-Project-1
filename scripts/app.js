@@ -41,13 +41,7 @@ function init() {
   let currentPacmanPosition = 255
   const pacmanClass = 'pacman'
   const startingGhostPosition = ['144', '145', '154', '155']
-  // let currentGhostPosition = ['144', '145', '154', '155']
-  // let currentGhostPosition1 
-  // let currentGhostPosition2
-  // let currentGhostPosition3
-  // let currentGhostPosition4 
-  let myInterval
-  // currentGhostPosition.forEach(ghost => console.log(ghost))
+
   const ghostOne = {
     startingPosition: 144,
     position: 144,
@@ -110,9 +104,10 @@ function init() {
     // ghostMove(ghostFour)
   }
 
-  
+  let myInterval
+
   function ghostMove(ghost){
-    setInterval(() => {
+    myInterval = setInterval(() => {
       console.log('Ghost position',ghost.position)
       cells[ghost.position].classList.remove(ghost.class)
       if (cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
@@ -123,22 +118,20 @@ function init() {
         ghost.position -= width
       } else if (cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
         ghost.position += width
-      }
-      cells[ghost.position].classList.add(ghost.class)
-      ghost.previousPositions.push(ghost.position)
-      // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
-      console.log(ghost.previousPositions)
+      } 
       if (cells[ghost.position].classList.contains('pacman')){
-        cells[currentPacmanPosition].classList.remove(pacmanClass)
-        score = 0
-        currentScore.innerText = 0
-        console.log('game over')
+        clearInterval()
         cells[ghost.position].classList.remove(ghost.class)
         cells[ghost.startingPosition].classList.add(ghost.class)
         score = 0
         currentScore.innerText = 0
         console.log('game over')
       }
+      cells[ghost.position].classList.add(ghost.class)
+      ghost.previousPositions.push(ghost.position)
+      // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
+      console.log(ghost.previousPositions)
+      
     }, ghost.speed)
   }
 
