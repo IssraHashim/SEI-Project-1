@@ -41,14 +41,14 @@ body {
   /* border: 1px solid lightgrey; */
   border-radius: 7px;
   font-size: 11px;
+  /* color: transparent */
 }
 
 .grid div.pacman {
-  background-image: url('../assets/AQlCuiD.gif');
-  background-size: 50%;
+  background-image: url('../assets/Mario-Head.gif');
+  background-size: 80%;
   background-repeat:no-repeat;
   background-position: center;
-  animation: bounce infinite;
 }
 
 .grid div.walls {
@@ -64,6 +64,12 @@ body {
   animation: bounce 2s infinite;
 }
 
+.grid div.special {
+  background-image: url('../assets/star.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .grid div.ghost {
   background-image: url('../assets/d66xyb8-04c800ee-3c19-4017-8836-6d3bca894449.gif');
   background-size: contain;
