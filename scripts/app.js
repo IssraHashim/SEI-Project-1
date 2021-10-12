@@ -53,9 +53,28 @@ function init() {
     speed: 1,
     class: 'ghost',
     previousPositions: []
-  }
-  let counter
-  
+  }  
+
+  // const ghostTwo = {
+  //   position: 145,
+  //   speed: 1,
+  //   class: 'ghost',
+  //   previousPositions: []
+  // }  
+
+  // const ghostThree = {
+  //   position: 154,
+  //   speed: 1,
+  //   class: 'ghost',
+  //   previousPositions: []
+  // }  
+
+  // const ghostFour = {
+  //   position: 155,
+  //   speed: 1,
+  //   class: 'ghost',
+  //   previousPositions: []
+  // }  
   console.log(ghostOne.position)
   // store each ghost in an object, with specific classes, positions, colors, and use info from objects 
   // loop 
@@ -80,23 +99,46 @@ function init() {
     })
     addPacman(startingPacmanPosition)
     myInterval
-  
   }
-  myInterval = setInterval(()=> {
-    cells[ghostOne.position].classList.remove(ghostOne.class)
-    if (cells[ghostOne.position + 1 ].classList.contains('walls') === false && cells[ghostOne.position + 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+
+  
+  myInterval = setInterval(ghostMove(), 1000, [ghostOne])  
+
+  function ghostMove(ghost){
+    console.log(ghostOne.class)
+    cells[ghost.position].classList.remove(ghost.class)
+    if (cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
       ghostOne.position++
-    } else if (cells[ghostOne.position - 1 ].classList.contains('walls') === false && cells[ghostOne.position - 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+    } else if (cells[ghost.position - 1 ].classList.contains('walls') === false && cells[ghost.position - 1].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1) {
       ghostOne.position--
-    } else if (cells[ghostOne.position - width ].classList.contains('walls') === false && cells[ghostOne.position - width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+    } else if (cells[ghost.position - width ].classList.contains('walls') === false && cells[ghost.position - width].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - width) {
       ghostOne.position -= width
-    } else if (cells[ghostOne.position + width ].classList.contains('walls') === false && cells[ghostOne.position + width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+    } else if (cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains('ghost') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
       ghostOne.position += width
     }
-    cells[ghostOne.position].classList.add(ghostOne.class)
-    ghostOne.previousPositions.push(ghostOne.position)
-    console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
-  }, 500)
+    cells[ghost.position].classList.add(ghost.class)
+    ghost.previousPositions.push(ghost.position)
+    // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
+    console.log(ghost.previousPositions)
+  }
+
+
+  // myInterval = setInterval((ghost)=> {
+  //   cells[ghostOne.position].classList.remove(ghostOne.class)
+  //   if (cells[ghostOne.position + 1 ].classList.contains('walls') === false && cells[ghostOne.position + 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+  //     ghostOne.position++
+  //   } else if (cells[ghostOne.position - 1 ].classList.contains('walls') === false && cells[ghostOne.position - 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+  //     ghostOne.position--
+  //   } else if (cells[ghostOne.position - width ].classList.contains('walls') === false && cells[ghostOne.position - width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+  //     ghostOne.position -= width
+  //   } else if (cells[ghostOne.position + width ].classList.contains('walls') === false && cells[ghostOne.position + width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
+  //     ghostOne.position += width
+  //   }
+  //   cells[ghostOne.position].classList.add(ghostOne.class)
+  //   ghostOne.previousPositions.push(ghostOne.position)
+  //   // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
+  //   console.log(ghostOne.previousPositions)
+  // }, 500)
 
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
