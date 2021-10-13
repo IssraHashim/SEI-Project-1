@@ -29,7 +29,8 @@
 
 function init() {
   const grid = document.querySelector('.grid')
-
+  const body = document.querySelector('body')
+  const timer = document.createElement('p')
   const width = 10
   const cellCount = width * width
   const cells = []
@@ -135,9 +136,14 @@ function init() {
       cells[ghost.position].classList.add(ghost.class)
       ghost.previousPositions.push(ghost.position)
       // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
+     
       if (cells[ghost.position].classList.contains('pacman')){
+        if (body.classList.contains('specialmode')){
+          ghost.position = ghost.startingGhostPosition
+        } else {
         clearInterval(myInterval)
         gameOver()
+        }
       }
       // if (cells[pacman].classList.contains('specialmode') && cells[ghost.position].classList.contains('pacman')){
       //   clearInterval(myInterval)
@@ -201,17 +207,43 @@ function init() {
     }
     addPacman(currentPacmanPosition)
     pacmanPreviousPositions.push(currentPacmanPosition)
-    if (cells[currentPacmanPosition].classList.contains('food') || cells[currentPacmanPosition].classList.contains('special')){
+    if (cells[currentPacmanPosition].classList.contains('food') ){
       score++
       cells[currentPacmanPosition].classList.remove('food')
-      cells[currentPacmanPosition].classList.remove('special')
       currentScore.innerText = score
-    } 
+    }
+    if (cells[currentPacmanPosition].classList.contains('special')) {
+      cells[currentPacmanPosition].classList.remove('special')
+      body.classList.add('specialmode')
+      body.appendChild(timer)
+      myTimer()
+    }
+    if (body.classList.contains('specialmode') && cells[currentPacmanPosition].classList.contains('ghost')){
+      score = score + 5
+    }
     if (cells[currentPacmanPosition].classList.contains('ghost')){
       gameOver()
     }
   }
 
+
+
+  const text = timer.innerText
+  let counter = 0
+  let start
+  function myTimer() {
+    start = setInterval(()=> {
+      counter++
+      if (counter < 10) {
+        timer.innerText = 10 - counter
+      } else {
+        timer.innerText = ''
+        clearInterval(start)
+        counter = 0
+        body.classList.remove('specialmode')
+      }
+    }, 1000)
+  }
   // let counter
   // function specialMode(event){
   //   myInterval = setInterval(() => {
