@@ -50,7 +50,8 @@ function init() {
   const startingGhostPosition = ['125', '145', '105', '255']
   const button = document.querySelector('#reset')
   const gameover = document.querySelector('.gameover')
-  
+  const audio = document.querySelector('audio')
+
   const ghostOne = {
     startingPosition: 125,
     position: 125,
@@ -106,6 +107,8 @@ function init() {
       //   space.classList.add('ghost')
       }
     })
+    audio.src = '../assets/untitled_3.mp3'
+    audio.play()
     addPacman(startingPacmanPosition)
     addGhost(ghostOne)
     addGhost(ghostTwo)
@@ -221,6 +224,9 @@ function init() {
       score++
       cells[currentPacmanPosition].classList.remove('food')
       currentScore.innerText = score
+      audio.src = '../assets/super-mario-coin-sound.mp3'
+      audio.play()
+      
     }
     if (cells[currentPacmanPosition].classList.contains('special')) {
       cells[currentPacmanPosition].classList.remove('special')
