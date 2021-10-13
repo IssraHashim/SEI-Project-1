@@ -143,15 +143,19 @@ body {
   flex-direction: row;
   justify-content:space-around;
   width: 100%;
+  padding-left: 0;
 }
 button {
   font-size: 14px;
 }
 .menu {
   font-size: large;
+  margin-top: 5vh;
 }
 .grid-wrapper {
-  padding-left:0 
+  padding-left:0; 
+  margin-top: 0;
+  height: 55vh
 }
 .gameover {
   margin-top: 3vh;
