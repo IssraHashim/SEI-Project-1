@@ -140,14 +140,11 @@ function init() {
         cells[ghost.position].classList.remove(ghost.class)
         ghost.position = ghost.startingGhostPosition
         cells[ghost.position].classList.add(ghost.class)
-      } else if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
+      } 
+      if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
         clearInterval(myInterval)
         gameOver()
       }
-      // if (cells[pacman].classList.contains('specialmode') && cells[ghost.position].classList.contains('pacman')){
-      //   clearInterval(myInterval)
-      //   gameOver()
-      // }
     }, ghost.speed)
   }
 
@@ -220,7 +217,7 @@ function init() {
     if (body.classList.contains('specialmode') && cells[currentPacmanPosition].classList.contains('ghost')){
       score = score + 5
     }
-    if (cells[currentPacmanPosition].classList.contains('ghost')){
+    if (cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
       gameOver()
     }
   }
