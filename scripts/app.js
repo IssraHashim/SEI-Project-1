@@ -48,7 +48,9 @@ function init() {
   const pacmanPreviousPositions= []
   const pacmanClass = 'pacman'
   const startingGhostPosition = ['125', '145', '105', '255']
-  const resetButton = document.querySelector('#reset')
+  const button = document.querySelector('#reset')
+  const gameover = document.querySelector('.gameover')
+  
   const ghostOne = {
     startingPosition: 125,
     position: 125,
@@ -79,6 +81,7 @@ function init() {
     class: 'ghost',
     previousPositions: []
   }  
+
   // store each ghost in an object, with specific classes, positions, colors, and use info from objects 
   // loop 
   // make the choice, then check if they run into wall or run into another ghost, or position they've been in before
@@ -177,26 +180,6 @@ function init() {
     }, ghost.speed)
   }
 
-
-  // setInterval(()=> {
-  //   console.log('type of ghost one',typeof ghost)
-  //   cells[ghostOne.position].classList.remove(ghostOne.class)
-  //   if (cells[ghostOne.position + 1 ].classList.contains('walls') === false && cells[ghostOne.position + 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
-  //     ghostOne.position++
-  //   } else if (cells[ghostOne.position - 1 ].classList.contains('walls') === false && cells[ghostOne.position - 1].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - 1 && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
-  //     ghostOne.position--
-  //   } else if (cells[ghostOne.position - width ].classList.contains('walls') === false && cells[ghostOne.position - width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position - width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
-  //     ghostOne.position -= width
-  //   } else if (cells[ghostOne.position + width ].classList.contains('walls') === false && cells[ghostOne.position + width].classList.contains('ghost') === false && ghostOne.previousPositions[ghostOne.previousPositions.length - 2] !== ghostOne.position + width && ghostOne.previousPositions[ghostOne.previousPositions.length - width] !== ghostOne.position - 1) {
-  //     ghostOne.position += width
-  //   }
-  //   cells[ghostOne.position].classList.add(ghostOne.class)
-  //   ghostOne.previousPositions.push(ghostOne.position)
-  //   // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
-  //   console.log(ghostOne.previousPositions)
-  // }, 500)
-
-
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
   }
@@ -216,7 +199,7 @@ function init() {
     cells[ghostThree.position] = ghostThree.startingPosition
     cells[ghostFour.position] = ghostFour.startingPosition
     currentScore.innerText = score
-    console.log('game over')
+    gameover.innerText = 'GAME OVER'
   }
   
 
@@ -294,11 +277,10 @@ function init() {
   }
 
   document.addEventListener('keydown', handleKeyDown)
-  resetButton.addEventListener('click', resetTimer)
+  // button.addEventListener('click', resetTimer)
 
 
-  createGrid()
-  console.log(cells[0])
+  button.addEventListener('click', resetTimer())
 
 }
 window.addEventListener('DOMContentLoaded', init)
