@@ -53,7 +53,7 @@ function init() {
     startingPosition: 125,
     position: 125,
     speed: 500,
-    class: 'ghost',
+    class: 'shell',
     previousPositions: []
   }  
 
@@ -67,7 +67,7 @@ function init() {
   const ghostThree = {
     startingPosition: 105,
     position: 105,
-    speed: 800,
+    speed: 300,
     class: 'ghost',
     previousPositions: []
   }  
@@ -75,7 +75,7 @@ function init() {
   const ghostFour = { 
     startingPosition: 255,
     position: 255,
-    speed: 1000,
+    speed: 500,
     class: 'ghost',
     previousPositions: []
   }  
@@ -95,7 +95,7 @@ function init() {
       if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * height - width || innerWalls.includes(space.innerText))  {
         space.classList.add('walls')
         walls.push(space)
-      } else if (startingGhostPosition.includes(space.innerText) === false && space.innerText !== startingPacmanPosition && specialFood.includes(space.innerText) === false) {
+      } else if (space.innerText !== startingPacmanPosition && specialFood.includes(space.innerText) === false) {
         space.classList.add('food')
       } else if (specialFood.includes(space.innerText)){
         space.classList.add('special')
@@ -109,9 +109,9 @@ function init() {
     addGhost(ghostThree)
     addGhost(ghostFour)
     ghostMove(ghostOne)
-    setTimeout(()=> !ghostMove(ghostTwo), 3000)
-    setTimeout(()=> ghostMove(ghostThree), 6000)
-    setTimeout(()=> ghostMove(ghostFour), 9000)
+    setTimeout(()=> !ghostMove(ghostTwo), 500)
+    setTimeout(()=> ghostMove(ghostThree), 700)
+    setTimeout(()=> ghostMove(ghostFour), 900)
   }
 
 
@@ -215,8 +215,7 @@ function init() {
     cells[ghostTwo.position] = ghostTwo.startingPosition
     cells[ghostThree.position] = ghostThree.startingPosition
     cells[ghostFour.position] = ghostFour.startingPosition
-    score = 0
-    currentScore.innerText = 0
+    currentScore.innerText = score
     console.log('game over')
   }
   
@@ -224,13 +223,13 @@ function init() {
   function handleKeyDown(event) {
     const key = event.keyCode
     removePacman(currentPacmanPosition)
-    if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false) {
+    if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
       currentPacmanPosition++
-    } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false) {
+    } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
       currentPacmanPosition--
-    } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false) {
+    } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
       currentPacmanPosition -= width
-    } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false) {
+    } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
       currentPacmanPosition += width
     }
     addPacman(currentPacmanPosition)
@@ -247,13 +246,14 @@ function init() {
       myTimer()
     }
     if (body.classList.contains('specialmode')) {
-      while (cells[currentPacmanPosition].classList.contains('ghost') ||  cells[currentPacmanPosition].classList.contains('piranha')) {
+      if (cells[currentPacmanPosition].classList.contains('ghost') ||  cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('shell')) {
         score += 5
         cells[currentPacmanPosition].classList.remove('ghost')
         cells[currentPacmanPosition].classList.remove('piranha')
+        cells[currentPacmanPosition].classList.remove('shell')
       }
     }
-    if (cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
+    if ( cells[currentPacmanPosition].classList.contains('shell') ||cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
       gameOver()
     }
   }
@@ -265,8 +265,7 @@ function init() {
   function myTimer() {
     start = setInterval(()=> {
       counter++
-      if (counter < 10) {
-      } else {
+      if (counter > 5) {
         clearInterval(start)
         counter = 0
         body.classList.remove('specialmode')

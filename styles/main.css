@@ -6,27 +6,44 @@ body {
   height : 100vh;
   display: flex;
   justify-content: center;
-  background-color: rgba(72, 211, 227, 0.899);
-  margin: 3vh 2vw;
+  background-image: url('../assets/Mario\ Background.png');
+  background-size: cover;
+  margin: 0 auto;
   font-family: 'Bangers', cursive;
 }
 
+button {
+  padding: 1vh 4vw;
+  border-radius: 30px;
+  font-family: 'Bangers', cursive;
+  width: 16vw;
+  border-color: cornflowerblue;
+  font-size: 17px;
+}
 .controls {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 10%;
+  padding-left: 8vw;
 }
 .menu {
   margin-top: 10vh;
+  text-align: end;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .grid-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
-  width: 96vw;
-  margin: 12vh 0;
+  height: 55vh;
+  padding-left: 5vw;
 }
 
 .grid {
@@ -45,7 +62,7 @@ body {
   /* border: 1px solid lightgrey; */
   border-radius: 7px;
   font-size: 11px;
-  /* color: transparent */
+  color: transparent
 }
 
 .grid div.pacman {
@@ -62,7 +79,7 @@ body {
 
 .grid div.food {
   background-image: url('../assets/DW4lTLu.gif');
-  background-size: 50%;
+  background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
   animation: bounce 2s infinite;
@@ -76,18 +93,25 @@ body {
 }
 .grid div.ghost {
   background-image: url('../assets/d66xyb8-04c800ee-3c19-4017-8836-6d3bca894449.gif');
-  background-size: 50%;
+  background-size: 70%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .grid div.piranha {
-  background-image: url('../assets/piranha-plant-super-smash-bros.gif');
-  background-size: 50%;
+  background-image: url('../assets/turtle.gif');
+  background-size: 100%;  
+  transform: rotate(-30deg);
   background-repeat: no-repeat;
   background-position: center;
 }
 
+.grid div.shell {
+  background-image: url('../assets/shell.gif');
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .specialmode {
   background-color: yellow;
 }
