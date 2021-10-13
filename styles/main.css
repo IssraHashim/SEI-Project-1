@@ -7,22 +7,26 @@ body {
   display: flex;
   justify-content: center;
   background-color: rgba(72, 211, 227, 0.899);
-  margin: 2vh 20vw;
+  margin: 3vh 2vw;
   font-family: 'Bangers', cursive;
 }
 
-.menu {
+.controls {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-right: 10vw;
-  margin-top: 40vh;
+}
+.menu {
+  margin-top: 10vh;
 }
 .grid-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
+  height: 60vh;
+  width: 96vw;
+  margin: 12vh 0;
 }
 
 .grid {
@@ -37,16 +41,16 @@ body {
 .grid div {
   flex-grow: 1;
   height: 10%;
-  width: 10%;
+  width: 3.33%;
   /* border: 1px solid lightgrey; */
   border-radius: 7px;
   font-size: 11px;
-  color: transparent
+  /* color: transparent */
 }
 
 .grid div.pacman {
   background-image: url('../assets/Mario-Head.gif');
-  background-size: 80%;
+  background-size: 200%;
   background-repeat:no-repeat;
   background-position: center;
 }
@@ -58,7 +62,7 @@ body {
 
 .grid div.food {
   background-image: url('../assets/DW4lTLu.gif');
-  background-size: 30%;
+  background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
   animation: bounce 2s infinite;
@@ -66,16 +70,24 @@ body {
 
 .grid div.special {
   background-image: url('../assets/star.gif');
-  background-size: contain;
+  background-size: 60%;
   background-repeat: no-repeat;
   background-position: center;
 }
 .grid div.ghost {
   background-image: url('../assets/d66xyb8-04c800ee-3c19-4017-8836-6d3bca894449.gif');
-  background-size: contain;
+  background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.grid div.piranha {
+  background-image: url('../assets/piranha-plant-super-smash-bros.gif');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .specialmode {
   background-color: yellow;
 }
