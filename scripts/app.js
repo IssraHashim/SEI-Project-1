@@ -27,6 +27,9 @@
     // game is over
 
 
+
+
+
 function init() {
   const grid = document.querySelector('.grid')
   const body = document.querySelector('body')
@@ -44,7 +47,7 @@ function init() {
   const pacmanPreviousPositions= []
   const pacmanClass = 'pacman'
   const startingGhostPosition = ['144', '145', '154', '155']
-
+  const resetButton = document.querySelector('#reset')
   const ghostOne = {
     startingPosition: 144,
     position: 144,
@@ -76,7 +79,6 @@ function init() {
     class: 'ghost',
     previousPositions: []
   }  
-  console.log(ghostOne.position)
   // store each ghost in an object, with specific classes, positions, colors, and use info from objects 
   // loop 
   // make the choice, then check if they run into wall or run into another ghost, or position they've been in before
@@ -89,7 +91,6 @@ function init() {
       grid.appendChild(cell)
       cells.push(cell)
     }
-    console.log(cells[0])
     cells.forEach(space => {
       if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * (width + width + width) - 10 || innerWalls.includes(space.innerText))  {
         space.classList.add('walls')
@@ -103,11 +104,9 @@ function init() {
     })
     addPacman(startingPacmanPosition)
     ghostMove(ghostOne)
-    setTimeout(()=> !ghostMove(ghostTwo), 3000)
-    setTimeout(()=> ghostMove(ghostThree), 6000)
-    setTimeout(()=> ghostMove(ghostFour), 9000)
-    // ghostMove(ghostThree)
-    // ghostMove(ghostFour)
+    setTimeout(()=> !ghostMove(ghostTwo), 2000)
+    setTimeout(()=> ghostMove(ghostThree), 400)
+    setTimeout(()=> ghostMove(ghostFour), 6000)
   }
   let myInterval
 
@@ -135,11 +134,10 @@ function init() {
       // }
       cells[ghost.position].classList.add(ghost.class)
       ghost.previousPositions.push(ghost.position)
-      // console.log(ghostOne.previousPositions[ghostOne.previousPositions.length - 2])
       if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
         cells[ghost.position].classList.remove(ghost.class)
-        ghost.position = ghost.startingGhostPosition
-        cells[ghost.position].classList.add(ghost.class)
+        setTimeout(()=> ghost.position = ghost.startingPosition, 8000)
+        
       } 
       if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
         clearInterval(myInterval)
@@ -168,12 +166,19 @@ function init() {
   // }, 500)
 
 
+ 
   function addPacman(position){
     cells[position].classList.add(pacmanClass)
   }
 
   function removePacman(position){
     cells[position].classList.remove(pacmanClass)
+  }
+  function addGhost (position){
+    cells[position].classList.add('ghost')
+  }
+  function removeGhost (position){
+    cells[position].classList.remove('ghost')
   }
 
   function gameOver(){
@@ -182,6 +187,10 @@ function init() {
     cells[ghostTwo.position] = ghostTwo.startingPosition
     cells[ghostThree.position] = ghostThree.startingPosition
     cells[ghostFour.position] = ghostFour.startingPosition
+    cells[ghostOne.previousPositions] = []
+    cells[ghostTwo.previousPositions] = []
+    cells[ghostThree.previousPositions] = []
+    cells[ghostFour.previousPositions] = []
     score = 0
     currentScore.innerText = 0
     console.log('game over')
@@ -190,7 +199,6 @@ function init() {
 
   function handleKeyDown(event) {
     const key = event.keyCode
-    console.log(event.ke)
     removePacman(currentPacmanPosition)
     if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false) {
       currentPacmanPosition++
@@ -224,7 +232,6 @@ function init() {
 
 
 
-  const text = timer.innerText
   let counter = 0
   let start
   function myTimer() {
@@ -240,32 +247,34 @@ function init() {
       }
     }, 1000)
   }
-  // let counter
-  // function specialMode(event){
-  //   myInterval = setInterval(() => {
-  //     counter++
-  //     const key = event.keycode
-  //     if (counter > 10){
-  //       clearInterval(myInterval)
-  //     } 
-  //       if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false) {
-  //         currentPacmanPosition++
-  //       } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false) {
-  //         currentPacmanPosition--
-  //       } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false) {
-  //         currentPacmanPosition -= width
-  //       } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false) {
-  //         currentPacmanPosition += width
-  //       }
-  //       if (cells[currentPacmanPosition].classList.contains('ghost')){
-  //         score++
-  //         currentScore.innerText = score
-  //       }
-      
-  //   })
+  function resetTimer(){
+    body.classList.remove('specialmode')
+    removePacman(currentPacmanPosition)
+    addPacman(startingPacmanPosition)
+    console.log(ghostOne.position)
+    console.log(ghostOne.startingPosition)
+    // ghostOne.position = 144
+    // removeGhost(ghostOne.position)
+    // removeGhost(ghostTwo.position)
+    // removeGhost(ghostThree.position)
+    // removeGhost(ghostFour.position)
+    // addGhost(ghostOne.startingPosition)
+    // addGhost(ghostTwo.startingPosition)
+    // addGhost(ghostThree.startingPosition)
+    // addGhost(ghostThree.startingPosition)
+    // cells[ghostOne.position].classList.remove(ghostOne.class)
+    // cells[ghostTwo.position].classList.remove(ghostTwo.class)
+    // cells[ghostThree.position].classList.remove(ghostThree.class)
+    // cells[ghostFour.position].classList.remove(ghostFour.class)
+    // cells[ghostOne.startingGhostPosition].classList.add('ghost')
+    // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
+    // cells[ghostThree.startingGhostPosition].classList.add('ghost')
+    // cells[ghostFour.startingGhostPosition].classList.add('ghost')
+    // addPacman(startingPacmanPosition)
+  }
 
   document.addEventListener('keydown', handleKeyDown)
-
+  resetButton.addEventListener('click', resetTimer)
 
 
   createGrid(startingPacmanPosition)
@@ -273,6 +282,9 @@ function init() {
 
 }
 window.addEventListener('DOMContentLoaded', init)
+
+
+
 // myInterval = setInterval(()=> {
 //   removeGhost(currentGhostPosition)
 //   currentGhostPosition.forEach(ghost => {
