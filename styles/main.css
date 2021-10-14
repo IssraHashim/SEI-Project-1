@@ -15,7 +15,7 @@ body {
 
 h1 {
   margin-top: -20vh;
-  font-size: 80px;
+  font-size: 106px;
   text-align: center;
   animation: fade 4s ;
 }
@@ -35,16 +35,24 @@ h1 {
 }
 
 button {
-  padding: 3vh 4vw;
-  border-radius: 31px;
+  padding: 5vh 0vw;
+  border-radius: 40px;
   font-family: 'Bangers', cursive;
-  text-align: center;
-  width: 45vw;
+  /* text-align: center; */
+  width: 56vw;
   border-color: cornflowerblue;
-  font-size: 34px;
+  font-size: 36px;
   background-color: #ebb214;
   color: white;
+  align-items: center;
   justify-content: center;
+}
+
+#reset {
+  padding: 0 5vw;
+  font-size: 23px;
+  width: 40vw;
+  height: 9vh;
 }
 .controls {
   display: flex;
@@ -76,7 +84,7 @@ button {
   justify-content: center;
   align-items: center;
   height: 65vh;
-  padding-top: 6vh;
+  padding-top: 4vh;
 }
 
 .gameover {
@@ -98,10 +106,9 @@ button {
   flex-grow: 1;
   height: 10%;
   width: 3.33%;
-  /* border: 1px solid lightgrey; */
   border-radius: 7px;
   font-size: 11px;
-  /* color: transparent */
+  color: transparent
 }
 
 .grid div.pacman {
@@ -114,6 +121,7 @@ button {
 .grid div.walls {
   background-image: url('../assets/brick.png');
   background-size: contain;
+  background-repeat: round;
 }
 
 .grid div.food {
@@ -159,30 +167,51 @@ button {
 @media screen and (max-width: 800px){
 body {
   display: flex;
-  flex-direction: column;
 }
 
+h1 {
+  font-size: 80px;
+}
 .controls {
   display: flex;
-  flex-direction: row;
-  justify-content:space-around;
   width: 100%;
-  padding-left: 0;
+  padding-top: 12vh;
 }
 button {
-  font-size: 14px;
+  font-size: 27px;
 }
 .menu {
   font-size: large;
-  margin-top: 5vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu p {
+  display: flex;
+  padding-right: 0;
+  padding-bottom: 2vh;
+  padding-top: 4vh;
 }
 .grid-wrapper {
   padding-left:0; 
   margin-top: 0;
-  height: 55vh
+  height: 55vh;
+  padding-top: 0;
+  padding-bottom: 5vh;
+}
+.game {
+  justify-content: space-evenly;
 }
 .gameover {
   margin-top: 3vh;
-  font-size: xxx-large;
+  font-size: 20px;
+  display: flex;
+  align-items: end;
+}
+
+#reset {
+  font-size: 17px;
+  padding: 3vh 36vw;
+  border-radius: 21px;
 }
 }
