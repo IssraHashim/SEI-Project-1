@@ -34,6 +34,9 @@ function init() {
   const grid = document.querySelector('.grid')
   const body = document.querySelector('body')
   const timer = document.createElement('p')
+  const gridWrapper = document.querySelector('.grid-wrapper')
+  const menu = document.querySelector('.menu')
+  const startMenu = document.querySelector('.controls')
   const width = 30
   const height = 10
   const cellCount = width * height
@@ -126,6 +129,10 @@ function init() {
   }
 
   function startGame(){
+    gridWrapper.style.display = 'flex'
+    menu.style.display = 'flex'
+    startMenu.style.display = 'none'
+    // gameover.style.display = 'none'
     setTimeout(() =>ghostMove(ghostOne), 500)
     setTimeout(()=> ghostMove(ghostTwo), 600)
     setTimeout(()=> ghostMove(ghostThree), 700)
@@ -181,9 +188,10 @@ function init() {
       cells[ghostThree.position] = ghostThree.startingPosition
       cells[ghostFour.position] = ghostFour.startingPosition
       currentScore.innerText = score
+      // gameover.style.display = 'flex'
       gameover.innerText = 'GAME OVER'
-      resetButton.style.display = 'block'
-      startButton.style.display = 'none'
+      resetButton.style.display = 'flex'
+      // startButton.style.display = 'none'
       
     }
 
@@ -279,6 +287,8 @@ function init() {
   }
 
   createGrid()
+  gridWrapper.style.display = 'none'
+  menu.style.display = 'none'
   startButton.addEventListener('click', startGame)
   resetButton.addEventListener('click', reload)
 

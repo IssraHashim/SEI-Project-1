@@ -13,20 +13,42 @@ body {
   color:white;
 }
 
+h1 {
+  margin-top: -20vh;
+  font-size: 80px;
+  text-align: center;
+  animation: fade 4s ;
+}
+
+@keyframes fade {
+  from {
+    background-image: url('../assets/AQlCuiD.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+  }
+  to {
+    background-image:none;
+    color: white;
+}
+}
+
 button {
   padding: 3vh 4vw;
-  border-radius: 30px;
+  border-radius: 31px;
   font-family: 'Bangers', cursive;
   text-align: center;
-  width: 16vw;
+  width: 45vw;
   border-color: cornflowerblue;
   /* background-image: url('../assets/QGo5isT.gif');
   background-size:contain;
   background-repeat: no-repeat;
   align-items:flex-start ; */
-  font-size: 18px;
+  font-size: 34px;
   background-color: #ebb214;
   color: white;
+  justify-content: center;
 }
 .controls {
   display: flex;
@@ -34,27 +56,35 @@ button {
   justify-content: center;
   align-items: center;
   width: 10%;
-  padding-left: 10vw;
+  /* padding-left: 10vw; */
 }
 .menu {
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
   text-align: end;
   font-size: x-large;
   white-space: pre;
+  /* padding-left: 5vw;
+  padding-top: 5vh; */
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
 }
 
+.menu p {
+  padding-right: 5vw;
+  padding-bottom: 5vh;
+  margin: 0;
+}
 .game {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .grid-wrapper {
-  display: flex;
   justify-content: center;
   align-items: center;
-  height: 59vh;
-  padding-left: 5vw;
-  margin-top: 9vh;
+  height: 65vh;
+  padding-top: 6vh;
 }
 
 .gameover {
@@ -69,7 +99,7 @@ button {
   justify-content: center;
   align-items: center;
   height: 109%;
-  width: 85%;
+  width: 90%;
 }
 
 .grid div {
