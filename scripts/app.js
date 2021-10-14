@@ -86,7 +86,17 @@ function init() {
   // store each ghost in an object, with specific classes, positions, colors, and use info from objects 
   // loop 
   // make the choice, then check if they run into wall or run into another ghost, or position they've been in before
-    
+  function addPacman(position){
+    cells[position].classList.add(pacmanClass)
+  }
+
+  function removePacman(position){
+    cells[position].classList.remove(pacmanClass)
+  }
+
+  function addGhost(object){
+    cells[object.position].classList.add(object.class)
+  }
 
   function createGrid() {
     for (let i = 0; i < 300; i++) {
@@ -107,20 +117,21 @@ function init() {
       //   space.classList.add('ghost')
       }
     })
-    audio.src = '../assets/untitled_3.mp3'
-    audio.play()
     addPacman(startingPacmanPosition)
     addGhost(ghostOne)
     addGhost(ghostTwo)
     addGhost(ghostThree)
     addGhost(ghostFour)
-    ghostMove(ghostOne)
-    setTimeout(()=> !ghostMove(ghostTwo), 500)
-    setTimeout(()=> ghostMove(ghostThree), 700)
-    setTimeout(()=> ghostMove(ghostFour), 900)
+    // audio.src = '../assets/untitled_3.mp3'
+    // audio.play()
+    
   }
 
-
+  function startGame(){
+    setTimeout(() =>ghostMove(ghostOne), 500)
+    setTimeout(()=> ghostMove(ghostTwo), 600)
+    setTimeout(()=> ghostMove(ghostThree), 700)
+    setTimeout(()=> ghostMove(ghostFour), 900)
   // function createGrid() {
   //   for (let i = 0; i < 300; i++) {
   //     const cell = document.createElement('div')
@@ -146,7 +157,6 @@ function init() {
   //   setTimeout(()=> ghostMove(ghostFour), 9000)
   // }
   let myInterval
-
   function ghostMove(ghost){
     myInterval = setInterval(() => {
       // console.log('Ghost position',cells[ghost.previousPositions])
@@ -183,17 +193,7 @@ function init() {
     }, ghost.speed)
   }
 
-  function addPacman(position){
-    cells[position].classList.add(pacmanClass)
-  }
 
-  function removePacman(position){
-    cells[position].classList.remove(pacmanClass)
-  }
-
-  function addGhost(object){
-    cells[object.position].classList.add(object.class)
-  }
 
   function gameOver(){
     cells[currentPacmanPosition].classList.remove(pacmanClass)
@@ -226,7 +226,7 @@ function init() {
       currentScore.innerText = score
       audio.src = '../assets/super-mario-coin-sound.mp3'
       audio.play()
-      
+
     }
     if (cells[currentPacmanPosition].classList.contains('special')) {
       cells[currentPacmanPosition].classList.remove('special')
@@ -264,34 +264,37 @@ function init() {
 
 
 
-  function resetTimer(){
-    body.classList.remove('specialmode')
-    // cells.remove(0, 300)
-    createGrid()
-    removePacman(currentPacmanPosition)
-    addPacman(startingPacmanPosition)
-    console.log(cells)
-    // cells[ghostOne.position].classList.remove(ghostOne.class)
-    // cells[ghostTwo.position].classList.remove(ghostTwo.class)
-    // cells[ghostThree.position].classList.remove(ghostThree.class)
-    // cells[ghostFour.position].classList.remove(ghostFour.class)
-    // cells[ghostOne.startingGhostPosition].classList.add('ghost')
-    // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
-    // cells[ghostThree.startingGhostPosition].classList.add('ghost')
-    // cells[ghostFour.startingGhostPosition].classList.add('ghost')
-    counter = 0
-  }
+  // function resetTimer(){
+  //   body.classList.remove('specialmode')
+  //   // cells.remove(0, 300)
+  //   createGrid()
+  //   removePacman(currentPacmanPosition)
+  //   addPacman(startingPacmanPosition)
+  //   console.log(cells)
+  //   // cells[ghostOne.position].classList.remove(ghostOne.class)
+  //   // cells[ghostTwo.position].classList.remove(ghostTwo.class)
+  //   // cells[ghostThree.position].classList.remove(ghostThree.class)
+  //   // cells[ghostFour.position].classList.remove(ghostFour.class)
+  //   // cells[ghostOne.startingGhostPosition].classList.add('ghost')
+  //   // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
+  //   // cells[ghostThree.startingGhostPosition].classList.add('ghost')
+  //   // cells[ghostFour.startingGhostPosition].classList.add('ghost')
+  //   counter = 0
+  // }
 
   document.addEventListener('keydown', handleKeyDown)
   // button.addEventListener('click', resetTimer)
+}
 
 
-  button.addEventListener('click', resetTimer())
+createGrid()
+button.addEventListener('click', startGame)
 
 }
 window.addEventListener('DOMContentLoaded', init)
 
-
+// alert('Game over')
+// location.reload()
 
 // myInterval = setInterval(()=> {
 //   removeGhost(currentGhostPosition)
@@ -331,3 +334,220 @@ window.addEventListener('DOMContentLoaded', init)
 // function removeGhost(position){
 //   cells.forEach(cell => cell.classList.remove('ghost'))
 // }
+
+
+// function init() {
+//   const grid = document.querySelector('.grid')
+//   const body = document.querySelector('body')
+//   const timer = document.createElement('p')
+//   const width = 30
+//   const height = 10
+//   const cellCount = width * height
+//   const cells = []
+//   const walls = []
+//   const currentScore = document.querySelector('span')
+//   let score = 0
+//   const innerWalls = ['63', '64', '65', '69', '70', '71','72', '45', '75', '78', '79', '80', '81', '85', '86', '87', '97', '127', '128', '133', '134', '135', '136', '137', '157', '113', '142', '143', '173', '153', '154', '184', '215', '216', '217', '218', '191', '192', '193', '194', '195', '225', '196', '197', '198', '199', '200', '232', '233', '234', '235', '206', '176', '177' ]
+//   const specialFood = ['214', '236', '67', '83']
+//   const startingPacmanPosition = '165'
+//   let currentPacmanPosition = 165
+//   const pacmanPreviousPositions= []
+//   const pacmanClass = 'pacman'
+//   const startingGhostPosition = ['125', '145', '105', '255']
+//   const button = document.querySelector('#reset')
+//   const gameover = document.querySelector('.gameover')
+//   const audio = document.querySelector('audio')
+
+//   const ghostOne = {
+//     startingPosition: 125,
+//     position: 125,
+//     speed: 500,
+//     class: 'shell',
+//     previousPositions: []
+//   }  
+
+//   const ghostTwo = {
+//     startingPosition: 145,
+//     position: 145,
+//     speed: 600,
+//     class: 'piranha',
+//     previousPositions: []
+//   }  
+//   const ghostThree = {
+//     startingPosition: 105,
+//     position: 105,
+//     speed: 300,
+//     class: 'ghost',
+//     previousPositions: []
+//   }  
+
+//   const ghostFour = { 
+//     startingPosition: 255,
+//     position: 255,
+//     speed: 500,
+//     class: 'ghost',
+//     previousPositions: []
+//   }  
+
+//   function createGrid() {
+//     for (let i = 0; i < 300; i++) {
+//       const cell = document.createElement('div')
+//       cell.innerText = i
+//       grid.appendChild(cell)
+//       cells.push(cell)
+//     }
+//     cells.forEach(space => {
+//       if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * height - width || innerWalls.includes(space.innerText))  {
+//         space.classList.add('walls')
+//         walls.push(space)
+//       } else if (space.innerText !== startingPacmanPosition && specialFood.includes(space.innerText) === false) {
+//         space.classList.add('food')
+//       } else if (specialFood.includes(space.innerText)){
+//         space.classList.add('special')
+//       // } else if (startingGhostPosition.includes(space.innerText))
+//       //   space.classList.add('ghost')
+//       }
+//     })
+//     audio.src = '../assets/untitled_3.mp3'
+//     audio.play()
+//     addPacman(startingPacmanPosition)
+//     addGhost(ghostOne)
+//     addGhost(ghostTwo)
+//     addGhost(ghostThree)
+//     addGhost(ghostFour)
+//     ghostMove(ghostOne)
+//     setTimeout(()=> !ghostMove(ghostTwo), 500)
+//     setTimeout(()=> ghostMove(ghostThree), 700)
+//     setTimeout(()=> ghostMove(ghostFour), 900)
+//   }
+
+//   let myInterval
+
+//   function ghostMove(ghost){
+//     myInterval = setInterval(() => {
+//       cells[ghost.position].classList.remove(ghost.class)
+//       const direction = Math.floor(Math.random() * 4)
+//       if (direction === 0 && cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
+//         ghost.position++
+//       }
+//       if (direction === 1 && cells[ghost.position - 1 ].classList.contains('walls') === false && cells[ghost.position - 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 ) {
+//         ghost.position--
+//       } 
+//       if (direction === 2 && cells[ghost.position - width ].classList.contains('walls') === false && cells[ghost.position - width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - width) {
+//         ghost.position -= width
+//       }
+//       if (direction === 3 && cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
+//         ghost.position += width
+//       }
+//       cells[ghost.position].classList.add(ghost.class)
+//       ghost.previousPositions.push(ghost.position)
+//       if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
+//         cells[ghost.position].classList.remove(ghost.class)
+//         ghost.position = ''
+//         // ghost.position = 'ghost.startingGhostPosition'
+//       } 
+//       if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
+//         clearInterval(myInterval)
+//         gameOver()
+//       }
+//     }, ghost.speed)
+//   }
+
+//   function addPacman(position){
+//     cells[position].classList.add(pacmanClass)
+//   }
+
+//   function removePacman(position){
+//     cells[position].classList.remove(pacmanClass)
+//   }
+
+//   function addGhost(object){
+//     cells[object.position].classList.add(object.class)
+//   }
+
+//   function gameOver(){
+//     cells[currentPacmanPosition].classList.remove(pacmanClass)
+//     cells[ghostOne.position] = ghostOne.startingPosition
+//     cells[ghostTwo.position] = ghostTwo.startingPosition
+//     cells[ghostThree.position] = ghostThree.startingPosition
+//     cells[ghostFour.position] = ghostFour.startingPosition
+//     currentScore.innerText = score
+//     gameover.innerText = 'GAME OVER'
+//   }
+  
+
+//   function handleKeyDown(event) {
+//     const key = event.keyCode
+//     removePacman(currentPacmanPosition)
+//     if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+//       currentPacmanPosition++
+//     } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+//       currentPacmanPosition--
+//     } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+//       currentPacmanPosition -= width
+//     } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+//       currentPacmanPosition += width
+//     }
+//     addPacman(currentPacmanPosition)
+//     pacmanPreviousPositions.push(currentPacmanPosition)
+//     if (cells[currentPacmanPosition].classList.contains('food') ){
+//       score++
+//       cells[currentPacmanPosition].classList.remove('food')
+//       currentScore.innerText = score
+//       audio.src = '../assets/super-mario-coin-sound.mp3'
+//       audio.play()
+      
+//     }
+//     if (cells[currentPacmanPosition].classList.contains('special')) {
+//       cells[currentPacmanPosition].classList.remove('special')
+//       body.classList.add('specialmode')
+//       body.appendChild(timer)
+//       myTimer()
+//     }
+//     if (body.classList.contains('specialmode')) {
+//       if (cells[currentPacmanPosition].classList.contains('ghost') ||  cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('shell')) {
+//         score += 5
+//         cells[currentPacmanPosition].classList.remove('ghost')
+//         cells[currentPacmanPosition].classList.remove('piranha')
+//         cells[currentPacmanPosition].classList.remove('shell')
+//       }
+//     }
+//     if ( cells[currentPacmanPosition].classList.contains('shell') ||cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
+//       gameOver()
+//     }
+//   }
+
+
+
+//   let counter = 0
+//   let start
+//   function myTimer() {
+//     start = setInterval(()=> {
+//       counter++
+//       if (counter > 5) {
+//         clearInterval(start)
+//         counter = 0
+//         body.classList.remove('specialmode')
+//       }
+//     }, 1000)
+//   }
+
+
+
+//   function resetTimer(){
+//     body.classList.remove('specialmode')
+//     createGrid()
+//     removePacman(currentPacmanPosition)
+//     addPacman(startingPacmanPosition)
+//     console.log(cells)
+//     counter = 0
+//   }
+
+//   document.addEventListener('keydown', handleKeyDown)
+//   // button.addEventListener('click', resetTimer)
+
+
+//   button.addEventListener('click', resetTimer())
+
+// }
+// window.addEventListener('DOMContentLoaded', init)
