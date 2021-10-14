@@ -44,7 +44,7 @@ function init() {
   const walls = []
   const currentScore = document.querySelector('span')
   let score = 0
-  const innerWalls = ['63', '64', '65', '69', '70', '71','72', '45', '75', '78', '79', '80', '81', '85', '86', '87', '97', '127', '128', '133', '134', '135', '136', '137', '157', '113', '142', '143', '173', '153', '154', '184', '215', '216', '217', '218', '191', '192', '193', '194', '195', '225', '196', '197', '198', '199', '200', '232', '233', '234', '235', '206', '176', '177' ]
+  const innerWalls = ['37','63', '64', '65', '69', '70', '71','72', '45','46', '75', '78', '79', '80', '81', '85', '86', '87', '97', '127', '128','130', '133', '134', '135', '136', '137','140', '157', '113', '142', '143', '173', '153', '154', '184', '215', '216', '217', '218', '191', '192', '193', '194', '195', '225', '196', '197', '198', '199', '200','212', '232', '233', '234', '235','237', '206', '176', '177' ]
   const specialFood = ['214', '236', '67', '83']
   const startingPacmanPosition = '165'
   let currentPacmanPosition = 165
@@ -167,6 +167,7 @@ function init() {
         if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
           cells[ghost.position].classList.remove(ghost.class)
           ghost.position = ''
+          // setTimeout(() =>ghostMove(ghost), 5000)
           // ghost.position = 'ghost.startingGhostPosition'
         } 
         if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
@@ -196,7 +197,7 @@ function init() {
     }
 
 
-      function handleKeyDown(event) {
+    function handleKeyDown(event) {
       const key = event.keyCode
       removePacman(currentPacmanPosition)
       if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
@@ -242,7 +243,6 @@ function init() {
     }
 
 
-
     let counter = 0
     let start
     function myTimer() {
@@ -258,28 +258,7 @@ function init() {
       }, 1000)
     }
 
-
-
-    // function resetTimer(){
-    //   body.classList.remove('specialmode')
-    //   // cells.remove(0, 300)
-    //   createGrid()
-    //   removePacman(currentPacmanPosition)
-    //   addPacman(startingPacmanPosition)
-    //   console.log(cells)
-    //   // cells[ghostOne.position].classList.remove(ghostOne.class)
-    //   // cells[ghostTwo.position].classList.remove(ghostTwo.class)
-    //   // cells[ghostThree.position].classList.remove(ghostThree.class)
-    //   // cells[ghostFour.position].classList.remove(ghostFour.class)
-    //   // cells[ghostOne.startingGhostPosition].classList.add('ghost')
-    //   // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
-    //   // cells[ghostThree.startingGhostPosition].classList.add('ghost')
-    //   // cells[ghostFour.startingGhostPosition].classList.add('ghost')
-    //   counter = 0
-    // }
-
-    document.addEventListener('keydown', handleKeyDown)
-    // button.addEventListener('click', resetTimer)
+    document.addEventListener('keyup', handleKeyDown)
 }
 
   function reload(){

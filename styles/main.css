@@ -41,10 +41,6 @@ button {
   text-align: center;
   width: 45vw;
   border-color: cornflowerblue;
-  /* background-image: url('../assets/QGo5isT.gif');
-  background-size:contain;
-  background-repeat: no-repeat;
-  align-items:flex-start ; */
   font-size: 34px;
   background-color: #ebb214;
   color: white;
@@ -56,15 +52,11 @@ button {
   justify-content: center;
   align-items: center;
   width: 10%;
-  /* padding-left: 10vw; */
 }
 .menu {
-  /* margin-top: 10vh; */
   text-align: end;
   font-size: x-large;
   white-space: pre;
-  /* padding-left: 5vw;
-  padding-top: 5vh; */
   display: flex;
   justify-content: space-around;
   margin: 0;
@@ -109,7 +101,7 @@ button {
   /* border: 1px solid lightgrey; */
   border-radius: 7px;
   font-size: 11px;
-  color: transparent
+  /* color: transparent */
 }
 
 .grid div.pacman {
