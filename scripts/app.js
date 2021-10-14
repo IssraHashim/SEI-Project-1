@@ -206,8 +206,6 @@ function init() {
         if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
           cells[ghost.position].classList.remove(ghost.class)
           ghost.position = ''
-          // setTimeout(() =>ghostMove(ghost), 5000)
-          // ghost.position = 'ghost.startingGhostPosition'
         } 
         if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
           clearInterval(myInterval)

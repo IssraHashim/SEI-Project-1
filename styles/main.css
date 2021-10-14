@@ -17,21 +17,24 @@ h1 {
   margin-top: -20vh;
   font-size: 106px;
   text-align: center;
-  animation: fade 4s ;
+  animation: fade 8s infinite;
 }
 
 @keyframes fade {
-  from {
+  10% {
+    background-image:none;
+    color: white;
+  }
+  35%{
+    color: transparent
+  }
+  50% {
     background-image: url('../assets/AQlCuiD.gif');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     color: transparent;
   }
-  to {
-    background-image:none;
-    color: white;
-}
 }
 
 button {
