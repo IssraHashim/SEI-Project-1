@@ -107,7 +107,6 @@ button {
   height: 10%;
   width: 3.33%;
   border-radius: 7px;
-  font-size: 11px;
   color: transparent
 }
 
@@ -213,5 +212,24 @@ button {
   font-size: 17px;
   padding: 3vh 36vw;
   border-radius: 21px;
+}
+
+.grid div.food {
+  background-size: 85%;
+}
+.grid div.special {
+  background-size: 100%;
+}
+.grid div.pirahna {
+  background-size: 150%;
+}
+.grid div.shell {
+  background-size: 230%;
+}
+.grid div.ghost {
+  background-size: 105%;
+}
+.grid div.pacman {
+  background-size: 220%;
 }
 }
