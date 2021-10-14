@@ -48,7 +48,8 @@ function init() {
   const pacmanPreviousPositions= []
   const pacmanClass = 'pacman'
   const startingGhostPosition = ['125', '145', '105', '255']
-  const button = document.querySelector('#reset')
+  const startButton = document.querySelector('#start')
+  const resetButton = document.querySelector('#reset')
   const gameover = document.querySelector('.gameover')
   const audio = document.querySelector('audio')
 
@@ -121,9 +122,9 @@ function init() {
     addGhost(ghostOne)
     addGhost(ghostTwo)
     addGhost(ghostThree)
-    addGhost(ghostFour)
-    // audio.src = '../assets/untitled_3.mp3'
-    // audio.play()
+    addGhost(ghostFour) 
+    resetButton.style.display = 'none'
+  
     
   }
 
@@ -132,6 +133,8 @@ function init() {
     setTimeout(()=> ghostMove(ghostTwo), 600)
     setTimeout(()=> ghostMove(ghostThree), 700)
     setTimeout(()=> ghostMove(ghostFour), 900)
+    audio.src = '../assets/untitled_3.mp3'
+    audio.play()
   // function createGrid() {
   //   for (let i = 0; i < 300; i++) {
   //     const cell = document.createElement('div')
@@ -203,6 +206,8 @@ function init() {
     cells[ghostFour.position] = ghostFour.startingPosition
     currentScore.innerText = score
     gameover.innerText = 'GAME OVER'
+    resetButton.style.display = 'block'
+    startButton.style.display = 'none'
   }
   
 
@@ -286,9 +291,13 @@ function init() {
   // button.addEventListener('click', resetTimer)
 }
 
+function reload(){
+  location.reload()
+}
 
 createGrid()
-button.addEventListener('click', startGame)
+startButton.addEventListener('click', startGame)
+resetButton.addEventListener('click', reload)
 
 }
 window.addEventListener('DOMContentLoaded', init)
