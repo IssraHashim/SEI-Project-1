@@ -51,7 +51,8 @@ function init() {
   const startButton = document.querySelector('#start')
   const resetButton = document.querySelector('#reset')
   const gameover = document.querySelector('.gameover')
-  const audio = document.querySelector('audio')
+  const backgroundmusic = document.querySelector('#backgroundmusic')
+  const otherAudio = document.querySelector('.other')
 
   const ghostOne = {
     startingPosition: 125,
@@ -114,8 +115,6 @@ function init() {
         space.classList.add('food')
       } else if (specialFood.includes(space.innerText)){
         space.classList.add('special')
-      // } else if (startingGhostPosition.includes(space.innerText))
-      //   space.classList.add('ghost')
       }
     })
     addPacman(startingPacmanPosition)
@@ -124,8 +123,6 @@ function init() {
     addGhost(ghostThree)
     addGhost(ghostFour) 
     resetButton.style.display = 'none'
-  
-    
   }
 
   function startGame(){
@@ -133,171 +130,157 @@ function init() {
     setTimeout(()=> ghostMove(ghostTwo), 600)
     setTimeout(()=> ghostMove(ghostThree), 700)
     setTimeout(()=> ghostMove(ghostFour), 900)
-    audio.src = '../assets/untitled_3.mp3'
-    audio.play()
-  // function createGrid() {
-  //   for (let i = 0; i < 300; i++) {
-  //     const cell = document.createElement('div')
-  //     cell.innerText = i
-  //     grid.appendChild(cell)
-  //     cells.push(cell)
-  //   }
-  //   cells.forEach(space => {
-  //     if (space.innerText % width === 0 || space.innerText % width === width - 1 || space.innerText < width || space.innerText > width * (width + width + width) - 10 || innerWalls.includes(space.innerText))  {
-  //       space.classList.add('walls')
-  //       walls.push(space)
-  //     } else if (startingGhostPosition.includes(space.innerText) === false && space.innerText !== startingPacmanPosition && specialFood.includes(space.innerText) === false) {
-  //       space.classList.add('food')
-  //     } else if (specialFood.includes(space.innerText)){
-  //       space.classList.add('special')
-  //     } else if (startingGhostPosition.includes(space.innerText))
-  //       space.classList.add('ghost')
-  //   })
-  //   addPacman(startingPacmanPosition)
-  //   ghostMove(ghostOne)
-  //   setTimeout(()=> !ghostMove(ghostTwo), 3000)
-  //   setTimeout(()=> ghostMove(ghostThree), 6000)
-  //   setTimeout(()=> ghostMove(ghostFour), 9000)
-  // }
-  let myInterval
-  function ghostMove(ghost){
-    myInterval = setInterval(() => {
+    backgroundmusic.src = 'assets/untitled_3.mp3'
+    backgroundmusic.play()
+    let myInterval
+    function ghostMove(ghost){
+      myInterval = setInterval(() => {
       // console.log('Ghost position',cells[ghost.previousPositions])
-      cells[ghost.position].classList.remove(ghost.class)
-      const direction = Math.floor(Math.random() * 4)
-      if (direction === 0 && cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
-        ghost.position++
-      }
-      if (direction === 1 && cells[ghost.position - 1 ].classList.contains('walls') === false && cells[ghost.position - 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 ) {
-        ghost.position--
-      } 
-      if (direction === 2 && cells[ghost.position - width ].classList.contains('walls') === false && cells[ghost.position - width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - width) {
-        ghost.position -= width
-      }
-      if (direction === 3 && cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
-        ghost.position += width
-      }
-      // if (cells[ghost.position - width ].classList.contains('walls') === false  && cells[ghost.position + width ].classList.contains('walls') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
-      //   const choices = [ghost.position--, ghost.position+= width]
-      //   ghost.position-- || ghost.position += width
-      //   ghost.position = Math.floor(Math.random() ( choices.length))
-      // }
-      cells[ghost.position].classList.add(ghost.class)
-      ghost.previousPositions.push(ghost.position)
-      if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
         cells[ghost.position].classList.remove(ghost.class)
-        ghost.position = ''
-        // ghost.position = 'ghost.startingGhostPosition'
-      } 
-      if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
-        clearInterval(myInterval)
+        const direction = Math.floor(Math.random() * 4)
+        if (direction === 0 && cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
+          ghost.position++
+        }
+        if (direction === 1 && cells[ghost.position - 1 ].classList.contains('walls') === false && cells[ghost.position - 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 ) {
+          ghost.position--
+        } 
+        if (direction === 2 && cells[ghost.position - width ].classList.contains('walls') === false && cells[ghost.position - width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - width) {
+          ghost.position -= width
+        }
+        if (direction === 3 && cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
+          ghost.position += width
+        }
+        // if (cells[ghost.position - width ].classList.contains('walls') === false  && cells[ghost.position + width ].classList.contains('walls') === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
+        //   const choices = [ghost.position--, ghost.position+= width]
+        //   ghost.position-- || ghost.position += width
+        //   ghost.position = Math.floor(Math.random() ( choices.length))
+        // }
+        cells[ghost.position].classList.add(ghost.class)
+        ghost.previousPositions.push(ghost.position)
+        if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
+          cells[ghost.position].classList.remove(ghost.class)
+          ghost.position = ''
+          // ghost.position = 'ghost.startingGhostPosition'
+        } 
+        if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
+          clearInterval(myInterval)
+          gameOver()
+        }
+      }, ghost.speed)
+    }
+
+
+
+    function gameOver(){
+      backgroundmusic.pause()
+      otherAudio.src = 'assets/10-mario-died.mp3'
+      otherAudio.play()
+      cells[currentPacmanPosition].classList.remove(pacmanClass)
+      cells[ghostOne.position] = ghostOne.startingPosition
+      cells[ghostTwo.position] = ghostTwo.startingPosition
+      cells[ghostThree.position] = ghostThree.startingPosition
+      cells[ghostFour.position] = ghostFour.startingPosition
+      currentScore.innerText = score
+      gameover.innerText = 'GAME OVER'
+      resetButton.style.display = 'block'
+      startButton.style.display = 'none'
+      
+    }
+
+
+      function handleKeyDown(event) {
+      const key = event.keyCode
+      removePacman(currentPacmanPosition)
+      if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+        currentPacmanPosition++
+      } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+        currentPacmanPosition--
+      } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+        currentPacmanPosition -= width
+      } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
+        currentPacmanPosition += width
+      }
+      addPacman(currentPacmanPosition)
+      pacmanPreviousPositions.push(currentPacmanPosition)
+      if (cells[currentPacmanPosition].classList.contains('food') ){
+        score++
+        cells[currentPacmanPosition].classList.remove('food')
+        currentScore.innerText = score
+        otherAudio.src = 'assets/super-mario-coin-sound.mp3'
+        otherAudio.play()
+
+      }
+      if (cells[currentPacmanPosition].classList.contains('special')) {
+        otherAudio.src = 'assets/mario-1-up.mp3'
+        otherAudio.play()
+        cells[currentPacmanPosition].classList.remove('special')
+        body.classList.add('specialmode')
+        body.appendChild(timer)
+        myTimer()
+        backgroundmusic.src = 'assets/super-mario-bros-nes-music-star-theme-cut-mp3.mp3'
+        backgroundmusic.play()
+      }
+      if (body.classList.contains('specialmode')) {
+        if (cells[currentPacmanPosition].classList.contains('ghost') ||  cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('shell')) {
+          score += 5
+          cells[currentPacmanPosition].classList.remove('ghost')
+          cells[currentPacmanPosition].classList.remove('piranha')
+          cells[currentPacmanPosition].classList.remove('shell')
+        }
+      }
+      if ( cells[currentPacmanPosition].classList.contains('shell') ||cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
         gameOver()
       }
-    }, ghost.speed)
-  }
-
-
-
-  function gameOver(){
-    cells[currentPacmanPosition].classList.remove(pacmanClass)
-    cells[ghostOne.position] = ghostOne.startingPosition
-    cells[ghostTwo.position] = ghostTwo.startingPosition
-    cells[ghostThree.position] = ghostThree.startingPosition
-    cells[ghostFour.position] = ghostFour.startingPosition
-    currentScore.innerText = score
-    gameover.innerText = 'GAME OVER'
-    resetButton.style.display = 'block'
-    startButton.style.display = 'none'
-  }
-  
-
-  function handleKeyDown(event) {
-    const key = event.keyCode
-    removePacman(currentPacmanPosition)
-    if (key === 39 && cells[currentPacmanPosition + 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
-      currentPacmanPosition++
-    } else if (key === 37 && cells[currentPacmanPosition - 1 ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
-      currentPacmanPosition--
-    } else if (key === 38 && cells[currentPacmanPosition - width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
-      currentPacmanPosition -= width
-    } else if (key === 40 && cells[currentPacmanPosition + width ].classList.contains('walls') === false && cells[currentPacmanPosition].classList.contains('ghost') === false && cells[currentPacmanPosition].classList.contains('piranha') === false && cells[currentPacmanPosition].classList.contains('shell') === false) {
-      currentPacmanPosition += width
     }
-    addPacman(currentPacmanPosition)
-    pacmanPreviousPositions.push(currentPacmanPosition)
-    if (cells[currentPacmanPosition].classList.contains('food') ){
-      score++
-      cells[currentPacmanPosition].classList.remove('food')
-      currentScore.innerText = score
-      audio.src = '../assets/super-mario-coin-sound.mp3'
-      audio.play()
 
+
+
+    let counter = 0
+    let start
+    function myTimer() {
+      start = setInterval(()=> {
+        counter++
+        if (counter > 5) {
+          clearInterval(start)
+          counter = 0
+          body.classList.remove('specialmode')
+          backgroundmusic.src = 'assets/untitled_3.mp3'
+          backgroundmusic.play()
+        }
+      }, 1000)
     }
-    if (cells[currentPacmanPosition].classList.contains('special')) {
-      cells[currentPacmanPosition].classList.remove('special')
-      body.classList.add('specialmode')
-      body.appendChild(timer)
-      myTimer()
-    }
-    if (body.classList.contains('specialmode')) {
-      if (cells[currentPacmanPosition].classList.contains('ghost') ||  cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('shell')) {
-        score += 5
-        cells[currentPacmanPosition].classList.remove('ghost')
-        cells[currentPacmanPosition].classList.remove('piranha')
-        cells[currentPacmanPosition].classList.remove('shell')
-      }
-    }
-    if ( cells[currentPacmanPosition].classList.contains('shell') ||cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
-      gameOver()
-    }
-  }
 
 
 
-  let counter = 0
-  let start
-  function myTimer() {
-    start = setInterval(()=> {
-      counter++
-      if (counter > 5) {
-        clearInterval(start)
-        counter = 0
-        body.classList.remove('specialmode')
-      }
-    }, 1000)
-  }
+    // function resetTimer(){
+    //   body.classList.remove('specialmode')
+    //   // cells.remove(0, 300)
+    //   createGrid()
+    //   removePacman(currentPacmanPosition)
+    //   addPacman(startingPacmanPosition)
+    //   console.log(cells)
+    //   // cells[ghostOne.position].classList.remove(ghostOne.class)
+    //   // cells[ghostTwo.position].classList.remove(ghostTwo.class)
+    //   // cells[ghostThree.position].classList.remove(ghostThree.class)
+    //   // cells[ghostFour.position].classList.remove(ghostFour.class)
+    //   // cells[ghostOne.startingGhostPosition].classList.add('ghost')
+    //   // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
+    //   // cells[ghostThree.startingGhostPosition].classList.add('ghost')
+    //   // cells[ghostFour.startingGhostPosition].classList.add('ghost')
+    //   counter = 0
+    // }
 
-
-
-  // function resetTimer(){
-  //   body.classList.remove('specialmode')
-  //   // cells.remove(0, 300)
-  //   createGrid()
-  //   removePacman(currentPacmanPosition)
-  //   addPacman(startingPacmanPosition)
-  //   console.log(cells)
-  //   // cells[ghostOne.position].classList.remove(ghostOne.class)
-  //   // cells[ghostTwo.position].classList.remove(ghostTwo.class)
-  //   // cells[ghostThree.position].classList.remove(ghostThree.class)
-  //   // cells[ghostFour.position].classList.remove(ghostFour.class)
-  //   // cells[ghostOne.startingGhostPosition].classList.add('ghost')
-  //   // cells[ghostTwo.startingGhostPosition].classList.add('ghost')
-  //   // cells[ghostThree.startingGhostPosition].classList.add('ghost')
-  //   // cells[ghostFour.startingGhostPosition].classList.add('ghost')
-  //   counter = 0
-  // }
-
-  document.addEventListener('keydown', handleKeyDown)
-  // button.addEventListener('click', resetTimer)
+    document.addEventListener('keydown', handleKeyDown)
+    // button.addEventListener('click', resetTimer)
 }
 
-function reload(){
-  location.reload()
-}
+  function reload(){
+    location.reload()
+  }
 
-createGrid()
-startButton.addEventListener('click', startGame)
-resetButton.addEventListener('click', reload)
+  createGrid()
+  startButton.addEventListener('click', startGame)
+  resetButton.addEventListener('click', reload)
 
 }
 window.addEventListener('DOMContentLoaded', init)

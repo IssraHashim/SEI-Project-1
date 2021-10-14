@@ -24,7 +24,9 @@ button {
   background-size:contain;
   background-repeat: no-repeat;
   align-items:flex-start ; */
-  font-size: 17px;
+  font-size: 18px;
+  background-color: #ebb214;
+  color: white;
 }
 .controls {
   display: flex;
