@@ -45,6 +45,7 @@ function init() {
   const currentScore = document.querySelector('span')
   let score = 0
   const innerWalls = ['37','63', '64', '65', '69', '70', '71','72', '45','46', '75', '78', '79', '80', '81', '85', '86', '87', '97', '127', '128','130', '133', '134', '135', '136', '137','140', '157', '113', '142', '143', '173', '153', '154', '184', '215', '216', '217', '218', '191', '192', '193', '194', '195', '225', '196', '197', '198', '199', '200','212', '232', '233', '234', '235','237', '206', '176', '177' ]
+  // const food = []
   const specialFood = ['214', '236', '67', '83']
   const startingPacmanPosition = '165'
   let currentPacmanPosition = 165
@@ -116,6 +117,7 @@ function init() {
         walls.push(space)
       } else if (space.innerText !== startingPacmanPosition && specialFood.includes(space.innerText) === false) {
         space.classList.add('food')
+        // food.push(space)
       } else if (specialFood.includes(space.innerText)){
         space.classList.add('special')
       }
@@ -132,45 +134,14 @@ function init() {
     gridWrapper.style.display = 'flex'
     menu.style.display = 'flex'
     startMenu.style.display = 'none'
-    // gameover.style.display = 'none'
     setTimeout(() =>ghostMove(ghostOne), 500)
     setTimeout(()=> ghostMove(ghostTwo), 600)
     setTimeout(()=> ghostMove(ghostThree), 700)
     setTimeout(()=> ghostMove(ghostFour), 900)
-    backgroundmusic.src = 'assets/untitled_3.mp3'
+    backgroundmusic.src = './assets/untitled_3.mp3'
     backgroundmusic.play()
     let myInterval
-    // function ghostMove(ghost){
-    //   myInterval = setInterval(() => {
-    //   // console.log('Ghost position',cells[ghost.previousPositions])
-    //     cells[ghost.position].classList.remove(ghost.class)
-    //     const direction = Math.floor(Math.random() * 4)
-    //     if (direction === 0 && cells[ghost.position + 1 ].classList.contains('walls') === false && cells[ghost.position + 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + 1) {
-    //       ghost.position++
-    //     }
-    //     if (direction === 1 && cells[ghost.position - 1 ].classList.contains('walls') === false && cells[ghost.position - 1].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - 1 ) {
-    //       ghost.position--
-    //     } 
-    //     if (direction === 2 && cells[ghost.position - width ].classList.contains('walls') === false && cells[ghost.position - width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position - width) {
-    //       ghost.position -= width
-    //     }
-    //     if (direction === 3 && cells[ghost.position + width ].classList.contains('walls') === false && cells[ghost.position + width].classList.contains(ghost.class) === false && ghost.previousPositions[ghost.previousPositions.length - 2] !== ghost.position + width) {
-    //       ghost.position += width
-    //     }
-    //     cells[ghost.position].classList.add(ghost.class)
-    //     ghost.previousPositions.push(ghost.position)
-    //     if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode')){
-    //       cells[ghost.position].classList.remove(ghost.class)
-    //       ghost.position = ''
-    //       // setTimeout(() =>ghostMove(ghost), 5000)
-    //       // ghost.position = 'ghost.startingGhostPosition'
-    //     } 
-    //     if (cells[ghost.position].classList.contains('pacman') && body.classList.contains('specialmode') === false ) {
-    //       clearInterval(myInterval)
-    //       gameOver()
-    //     }
-    //   }, ghost.speed)
-    // }
+
     function ghostMove(ghost){
       myInterval = setInterval(() => {
         cells[ghost.position].classList.remove(ghost.class)
@@ -214,10 +185,22 @@ function init() {
       }, ghost.speed)
     }
 
+    function youWin() {
+      backgroundmusic.pause()
+      otherAudio.src = './assets/victory-mario-series-hq-super-smash-bros.mp3'
+      otherAudio.play()
+      currentScore.innerText = score
+      gameover.innerText = 'YOU WIN!'
+      resetButton.style.display = 'flex'
+      cells[ghostOne.position] = ghostOne.startingPosition
+      cells[ghostTwo.position] = ghostTwo.startingPosition
+      cells[ghostThree.position] = ghostThree.startingPosition
+      cells[ghostFour.position] = ghostFour.startingPosition
+    }
 
     function gameOver(){
       backgroundmusic.pause()
-      otherAudio.src = 'assets/10-mario-died.mp3'
+      otherAudio.src = './assets/10-mario-died.mp3'
       otherAudio.play()
       cells[currentPacmanPosition].classList.remove(pacmanClass)
       cells[ghostOne.position] = ghostOne.startingPosition
@@ -225,11 +208,8 @@ function init() {
       cells[ghostThree.position] = ghostThree.startingPosition
       cells[ghostFour.position] = ghostFour.startingPosition
       currentScore.innerText = score
-      // gameover.style.display = 'flex'
       gameover.innerText = 'GAME OVER'
       resetButton.style.display = 'flex'
-      // startButton.style.display = 'none'
-      
     }
 
 
@@ -251,18 +231,18 @@ function init() {
         score++
         cells[currentPacmanPosition].classList.remove('food')
         currentScore.innerText = score
-        otherAudio.src = 'assets/super-mario-coin-sound.mp3'
+        otherAudio.src = './assets/super-mario-coin-sound.mp3'
         otherAudio.play()
 
       }
       if (cells[currentPacmanPosition].classList.contains('special')) {
-        otherAudio.src = 'assets/mario-1-up.mp3'
+        otherAudio.src = './assets/mario-1-up.mp3'
         otherAudio.play()
         cells[currentPacmanPosition].classList.remove('special')
         body.classList.add('specialmode')
         body.appendChild(timer)
         myTimer()
-        backgroundmusic.src = 'assets/super-mario-bros-nes-music-star-theme-cut-mp3.mp3'
+        backgroundmusic.src = './assets/super-mario-bros-nes-music-star-theme-cut-mp3.mp3'
         backgroundmusic.play()
       }
       if (body.classList.contains('specialmode')) {
@@ -273,8 +253,12 @@ function init() {
           cells[currentPacmanPosition].classList.remove('shell')
         }
       }
-      if ( cells[currentPacmanPosition].classList.contains('shell') ||cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
+      if ( cells[currentPacmanPosition].classList.contains('shell') || cells[currentPacmanPosition].classList.contains('piranha') || cells[currentPacmanPosition].classList.contains('ghost') && body.classList.contains('specialmode') === false ){
         gameOver()
+      }
+      console.log(cells.filter(cell => (cell.classList.contains('food'))).length)
+      if (cells.filter(cell => Number(cell.classList.contains('food'))).length === 0 && cells.filter(cell => Number(cell.classList.contains('special'))).length === 0) {
+        youWin()
       }
     }
 
@@ -288,7 +272,7 @@ function init() {
           clearInterval(start)
           counter = 0
           body.classList.remove('specialmode')
-          backgroundmusic.src = 'assets/untitled_3.mp3'
+          backgroundmusic.src = './assets/untitled_3.mp3'
           backgroundmusic.play()
         }
       }, 1000)
