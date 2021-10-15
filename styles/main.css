@@ -94,7 +94,7 @@ button {
   text-align: center;
   margin-top: 7vh;
   font-size: xxx-large;
-  
+  animation: bounce 2s 3;
 }
 .grid {
   display: flex;
@@ -131,7 +131,7 @@ button {
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
-  animation: bounce 2s infinite;
+  /* animation: bounce 2s infinite; */
 }
 
 .grid div.special {
