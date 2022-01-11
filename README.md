@@ -145,7 +145,7 @@ User can pick a player
 
 - On special mode Pacman cannot always eat the ghosts. 
 - Ghosts are not always chasing Pacman and can end up stuck in a corner.
-- 
+
 <br/>
 
 ***Key learnings***
