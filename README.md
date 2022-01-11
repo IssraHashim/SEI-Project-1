@@ -1,3 +1,7 @@
+# SEI Project 1 - Mario Pacman
+
+<br/>
+
 [Link](https://issrahashim.github.io/SEI-Project-1/)
 
 <br/>
